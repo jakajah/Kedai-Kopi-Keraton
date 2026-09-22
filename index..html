@@ -29,6 +29,7 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#menu">Menu</a>
+            <a href="#products">Produk</a>
             <a href="#contact">Contact</a>
         </div>
 
@@ -37,6 +38,55 @@
             <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
             <a href="#" id="humburger-menu"><i data-feather="menu"></i></a>
         </div>
+
+        <!--Search form start-->
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box"><i data-feather="search"></i></label>
+        </div>
+        <!--Search form end-->
+
+        <!--Shopping Cart Start-->
+        <div class="shopping-cart">
+            <div class="cart-item">
+                <img src="img/product/java.png" alt="java">
+                <div class="item-detail">
+                    <h3>Java</h3>
+                    <div class="item-price">IDR 30K</div>
+                </div>
+                <i data-feather="trash-2" class="remove-item"></i>
+            </div>
+
+            <div class="cart-item">
+                <img src="img/product/malabar.png" alt="malabar">
+                <div class="item-detail">
+                    <h3>Malabar</h3>
+                    <div class="item-price">IDR 40K</div>
+                </div>
+                <i data-feather="trash-2" class="remove-item"></i>
+            </div>
+
+            <div class="cart-item">
+                <img src="img/product/brazil.jpg" alt="brazil">
+                <div class="item-detail">
+                    <h3>Brazil</h3>
+                    <div class="item-price">IDR 80K</div>
+                </div>
+                <i data-feather="trash-2" class="remove-item"></i>
+            </div>
+
+            <div class="cart-item">
+                <img src="img/product/java.png" alt="java">
+                <div class="item-detail">
+                    <h3>Yaman</h3>
+                    <div class="item-price">IDR 120K</div>
+                </div>
+                <i data-feather="trash-2" class="remove-item"></i>
+            </div>
+            
+        </div>
+        <!--Shopping Cart End-->
+
     </nav>
     <!--navbar end-->
 
@@ -73,6 +123,7 @@
         <h2><span>Kopi</span> Pilihan Kami</h2>
         <p>Berbagai jenis kopi pilihan yang kami sediakan untuk Anda nikmati di setiap tegukan.</p>
 
+
         <div class="row">
             <div class="menu-card">
                 <img src="img/menu/1.jpg" alt="Kopi Arabica" class="menu-card-img">
@@ -107,6 +158,103 @@
         </div>
      </section>
      <!-- Menu Section end -->
+
+     <!--Products Section Start-->
+     <section class="products" id="products">
+        <h2>Produk <span>kopi</span></h2>
+        <p>Biji Kopi kami adalah biji kopi pilihan yang ditanam langsung di pegunungan Pulau Jawa.</p>
+
+        <div class="row">
+            <div class="product-card" data-description="Kopi Malabar berasal dari lereng Gunung Malabar, Pangalengan, Jawa Barat, dengan cita rasa khas beraroma buah dan rempah.">
+                <div class="product-icons">
+                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                    <a href="#"><i data-feather="eye"></i></a>
+                </div>
+                <div class="product-image">
+                    <img src="img/product/malabar.png" alt="java">
+                </div>
+                <div class="product-content">
+                    <h3>Malabar</h3>
+                <div class="product-stars">
+                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star"></i>
+                </div>
+                <div class="product-price">IDR 40K <span>IDR60K</span></div>
+                </div>
+            </div>
+
+            <div class="product-card" data-description="Kopi Java memiliki aroma yang harum dan rasa seimbang, berasal dari perkebunan kopi pilihan di Pulau Jawa.">
+                <div class="product-icons">
+                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                    <a href="#"><i data-feather="eye"></i></a>
+                </div>
+                <div class="product-image">
+                    <img src="img/product/java.png" alt="java">
+                </div>
+                <div class="product-content">
+                    <h3>Java</h3>
+                <div class="product-stars">
+                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star"class="star"></i>
+                </div>
+                <div class="product-price">IDR 30K <span>IDR 55K</span></div>
+                </div>
+            </div>
+
+            <div class="product-card" data-description="Kopi Brazil memiliki rasa lembut dengan aroma kacang dan cokelat yang cocok dinikmati kapan saja.">
+                <div class="product-icons">
+                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                    <a href="#"><i data-feather="eye"></i></a>
+                </div>
+                <div class="product-image">
+                    <img src="img/product/brazil.jpg" alt="brazil">
+                </div>
+                <div class="product-content">
+                    <h3>Brazil</h3>
+                <div class="product-stars">
+                    <i data-feather="star" class="star"></i>
+                    <i data-feather="star" class="star"></i>
+                    <i data-feather="star" class="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                </div>
+                <div class="product-price">IDR 80K <span>IDR120</span></div>
+                </div>
+            </div>
+
+            <div class="product-card" data-description="Kopi Yaman memiliki cita rasa kaya dengan aroma rempah dan karakter khas dari dataran tinggi Yaman.">
+                <div class="product-icons">
+                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                    <a href="#"><i data-feather="eye"></i></a>
+                </div>
+                <div class="product-image">
+                    <img src="img/product/yaman.png" alt="yaman">
+                </div>
+                <div class="product-content">
+                    <h3>Yaman</h3>
+                <div class="product-stars">
+                    <i data-feather="star" class="star"></i>
+                    <i data-feather="star" class="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                    <i data-feather="star"></i>
+                </div>
+                <div class="product-price">IDR 120K <span>IDR300K</span></div>
+                </div>
+            </div>
+
+
+        </div>
+     </section>
+
+     
+     <!--Products Sectuon End-->
 
      <!-- contact Section start -->
      <section id="contact" class="contact">
@@ -156,12 +304,35 @@
      </footer>
      <!--Footer end-->
 
+     <!--Modal Box Item Detail Start-->
+     <div class="modal" id="item-detail-modal">
+        <div class="modal-container">
+            <a href="#" class="close-icon" aria-label="Tutup detail produk"><i data-feather="x"></i></a>
+            <div class="modal-content">
+                <img src="img/product/malabar.png" alt="malabar">
+                <div class="modal-info">
+                    <h3>Malabar</h3>
+                    <p>Biji kopi Malabar adalah salah satu varietas kopi premium asal lereng Gunung Malabar, Pangalengan, Jawa Barat, yang terkenal dengan cita rasa khas beraroma buah atau rempah.</p>
+                    <div class="product-stars modal-stars">
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                    <div class="product-price">IDR 40K <span>IDR 60K</span></div>
+                    <a href="#" class="modal-add-to-cart"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
+            </div>
+        </div>
+     </div>
+     <!--Modal Box Item Detail End-->
+
     <!-- Icon -->
      <script>
       feather.replace();
     </script>
 
     <!-- JavaScript -->
-     <script src="/KopiKeraton/js/script.js"></script>
+     <script src="js/script.js"></script>
 </body>
 </html>
