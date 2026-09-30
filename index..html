@@ -16,10 +16,14 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
+    <!-- alphine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+    <!--App-->
+    <script src="src/app.js"></script>
 
 </head>
-<body>
+<body x-data>
     
     <!--navbar start-->
     <nav class="navbar">
@@ -35,7 +39,11 @@
 
         <div class="navbar-extra">
             <a href="#" id="search"><i data-feather="search"></i></a>
-            <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+            <a href="#" id="shopping-cart" aria-label="Buka keranjang belanja"
+               @click.stop.prevent="$store.cart.open = !$store.cart.open">
+                <i data-feather="shopping-cart"></i>
+                <span id="cart-count" class="cart-count" aria-live="polite" x-text="$store.cart.count">0</span>
+            </a>
             <a href="#" id="humburger-menu"><i data-feather="menu"></i></a>
         </div>
 
@@ -47,33 +55,55 @@
         <!--Search form end-->
 
         <!--Shopping Cart Start-->
-        <div class="shopping-cart">
-            <div class="cart-item">
-                <img src="img/product/java.png" alt="java">
-                <div class="item-detail">
-                    <h3>Java</h3>
-                    <div class="item-price">IDR 30K</div>
-                </div>
-                <i data-feather="trash-2" class="remove-item"></i>
+        <div class="shopping-cart" aria-label="Keranjang belanja"
+             :class="{ active: $store.cart.open }"
+             :aria-hidden="!$store.cart.open"
+             :inert="!$store.cart.open"
+             @click.outside="$store.cart.open = false">
+            <h2 class="cart-heading">Keranjang Belanja</h2>
+            <div class="cart-items" aria-live="polite">
+                <p class="cart-empty" x-show="$store.cart.items.length === 0">Keranjang masih kosong.</p>
+                <template x-for="item in $store.cart.items" :key="item.id">
+                    <div class="cart-item">
+                        <img :src="item.image" :alt="item.name">
+                        <div class="item-detail">
+                            <h3 x-text="item.name"></h3>
+                            <div class="item-price">
+                                <span x-text="$store.cart.format(item.price)"></span>
+                                <span> x </span>
+                                <button type="button" class="quantity-button" :aria-label="'Kurangi ' + item.name"
+                                        @click="$store.cart.changeQuantity(item.id, -1)">-</button>
+                                <span x-text="item.quantity"></span>
+                                <button type="button" class="quantity-button" :aria-label="'Tambah ' + item.name"
+                                        @click="$store.cart.changeQuantity(item.id, 1)">+</button>
+                                <span> = </span>
+                                <strong x-text="$store.cart.format(item.price * item.quantity)"></strong>
+                            </div>
+                        </div>
+                        <button type="button" class="remove-item" :aria-label="'Hapus ' + item.name"
+                                @click="$store.cart.remove(item.id)">Hapus</button>
+                    </div>
+                </template>
             </div>
-
-            <div class="cart-item">
-                <img src="img/product/malabar.png" alt="malabar">
-                <div class="item-detail">
-                    <h3>Malabar</h3>
-                    <div class="item-price">IDR 40K</div>
-                </div>
-                <i data-feather="trash-2" class="remove-item"></i>
+            <div class="cart-summary">
+                <span>Total:</span>
+                <strong class="cart-total" x-text="$store.cart.format($store.cart.total)">IDR 0</strong>
             </div>
-
-            <div class="cart-item">
-                <img src="img/product/brazil.jpg" alt="brazil">
-                <div class="item-detail">
-                    <h3>Brazil</h3>
-                    <div class="item-price">IDR 80K</div>
-                </div>
-                <i data-feather="trash-2" class="remove-item"></i>
-            </div>      
+            <form class="cart-customer" @submit.prevent="$store.cart.checkout()">
+                <h3>Customer Detail</h3>
+                <label>Name
+                    <input type="text" x-model="$store.cart.customer.name" required autocomplete="name">
+                </label>
+                <label>Email
+                    <input type="email" x-model="$store.cart.customer.email" required autocomplete="email">
+                </label>
+                <label>Phone
+                    <input type="tel" x-model="$store.cart.customer.phone" required autocomplete="tel">
+                </label>
+                <button class="cart-checkout" type="submit" :disabled="$store.cart.count === 0">Checkout</button>
+                <p class="checkout-message" role="status" x-show="$store.cart.checkoutMessage"
+                   x-text="$store.cart.checkoutMessage"></p>
+            </form>
         </div>
         <!--Shopping Cart End-->
 
@@ -154,9 +184,10 @@
         <p>Biji Kopi kami adalah biji kopi pilihan yang ditanam langsung di pegunungan Pulau Jawa.</p>
 
         <div class="row">
-            <div class="product-card" data-description="Kopi Malabar berasal dari lereng Gunung Malabar, Pangalengan, Jawa Barat, dengan cita rasa khas beraroma buah dan rempah.">
+            <div class="product-card" data-description="Kopi Malabar berasal dari lereng Gunung Malabar, Pangalengan, Jawa Barat, dengan cita rasa khas beraroma buah dan rempah." data-stars="4">
                 <div class="product-icons">
-                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                          <a href="#" aria-label="Tambah Malabar ke keranjang"
+                               @click.stop.prevent="$store.cart.add('malabar'); $store.cart.open = true"><i data-feather="shopping-cart"></i></a>
                     <a href="#"><i data-feather="eye"></i></a>
                 </div>
                 <div class="product-image">
@@ -165,19 +196,20 @@
                 <div class="product-content">
                     <h3>Malabar</h3>
                 <div class="product-stars">
-                    <i data-feather="star"class="star"></i>
-                    <i data-feather="star"class="star"></i>
-                    <i data-feather="star"class="star"></i>
-                    <i data-feather="star"class="star"></i>
+                    <i data-feather="star" class="star"></i>
+                    <i data-feather="star" class="star"></i>
+                    <i data-feather="star" class="star"></i>
+                    <i data-feather="star" class="star"></i>
                     <i data-feather="star"></i>
                 </div>
                 <div class="product-price">IDR 40K <span>IDR60K</span></div>
                 </div>
             </div>
 
-            <div class="product-card" data-description="Kopi Java memiliki aroma yang harum dan rasa seimbang, berasal dari perkebunan kopi pilihan di Pulau Jawa.">
+            <div class="product-card" data-description="Kopi Java memiliki aroma yang harum dan rasa seimbang, berasal dari perkebunan kopi pilihan di Pulau Jawa." data-stars="5">
                 <div class="product-icons">
-                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                          <a href="#" aria-label="Tambah Java ke keranjang"
+                               @click.stop.prevent="$store.cart.add('java'); $store.cart.open = true"><i data-feather="shopping-cart"></i></a>
                     <a href="#"><i data-feather="eye"></i></a>
                 </div>
                 <div class="product-image">
@@ -196,9 +228,10 @@
                 </div>
             </div>
 
-            <div class="product-card" data-description="Kopi Brazil memiliki rasa lembut dengan aroma kacang dan cokelat yang cocok dinikmati kapan saja.">
+            <div class="product-card" data-description="Kopi Brazil memiliki rasa lembut dengan aroma kacang dan cokelat yang cocok dinikmati kapan saja." data-stars="3">
                 <div class="product-icons">
-                    <a href="#"><i data-feather="shopping-cart"></i></a>
+                          <a href="#" aria-label="Tambah Brazil ke keranjang"
+                               @click.stop.prevent="$store.cart.add('brazil'); $store.cart.open = true"><i data-feather="shopping-cart"></i></a>
                     <a href="#"><i data-feather="eye"></i></a>
                 </div>
                 <div class="product-image">
@@ -279,15 +312,11 @@
                 <div class="modal-info">
                     <h3>Malabar</h3>
                     <p>Biji kopi Malabar adalah salah satu varietas kopi premium asal lereng Gunung Malabar, Pangalengan, Jawa Barat, yang terkenal dengan cita rasa khas beraroma buah atau rempah.</p>
-                    <div class="product-stars modal-stars">
-                        <i data-feather="star" class="star"></i>
-                        <i data-feather="star" class="star"></i>
-                        <i data-feather="star" class="star"></i>
-                        <i data-feather="star" class="star"></i>
-                        <i data-feather="star"></i>
-                    </div>
                     <div class="product-price">IDR 40K <span>IDR 60K</span></div>
-                    <a href="#" class="modal-add-to-cart"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
+                    <a href="#" class="modal-add-to-cart"
+                       @click.stop.prevent="$store.cart.addByName(document.querySelector('#item-detail-modal .modal-info h3').textContent); $store.cart.open = true; document.querySelector('#item-detail-modal').classList.remove('active'); document.body.style.overflow = ''">
+                        <i data-feather="shopping-cart"></i> <span>add to cart</span>
+                    </a>
             </div>
         </div>
      </div>
